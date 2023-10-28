@@ -8,6 +8,8 @@ import * as url from 'url';
 import path from 'path';
 
 
+import viewRouter from './routes/viewRoutes.mjs'
+
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
 const app = express();
@@ -35,9 +37,7 @@ app.use(xss());
 //. Prevent parameter pollution
 
 // Route
-app.use('/', (req,res) => {
-    return res.send('Hello')
-});
+app.use('/', viewRouter);
 //API
 
 export default app;
