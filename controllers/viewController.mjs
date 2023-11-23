@@ -1,7 +1,43 @@
 import catchAsync from '../ultils/catchAsync.mjs';
 const getOverview = catchAsync(async (req, res) => {
+    
+    const products = [
+        {
+            itemID: 1,
+            itemName: "Food 1",
+            itemStatus: true,
+            price: 1000,
+            image: 'images/cake.jpg',
+            rate: 4
+        },
+        {
+            itemID: 1,
+            itemName: "Food 1",
+            itemStatus: true,
+            price: 1000,
+            image: 'images/cake.jpg',
+            rate: 4
+        },
+        {
+            itemID: 1,
+            itemName: "Food 1",
+            itemStatus: true,
+            price: 1000,
+            image: 'images/cake.jpg',
+            rate: 4
+        },
+        {
+            itemID: 1,
+            itemName: "Food 1",
+            itemStatus: true,
+            price: 1000,
+            image: 'images/cake.jpg',
+            rate: 4
+        },
+    ]
     res.status(200).render('overview', {
         title: 'Trang chủ',
+        products
     });
 });
 const getProduct = catchAsync(async (req, res, next) => {
