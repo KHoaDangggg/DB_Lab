@@ -6,7 +6,7 @@ import xss from 'xss-clean';
 import cookieParser from 'cookie-parser';
 import * as url from 'url';
 import path from 'path';
-
+import food_order_webRouter from "./routes/food_order_web.js";
 
 import viewRouter from './routes/viewRoutes.mjs'
 
@@ -39,5 +39,10 @@ app.use(xss());
 // Route
 app.use('/', viewRouter);
 //API
+
+
+app.use("/food_orderWeb", food_order_webRouter);
+
+
 
 export default app;
