@@ -31,17 +31,17 @@ app.use(
 );
 app.use(cookieParser());
 //. Data sanitization against NoSQL query injection
-app.use(mongoSanitize());
-//. Data sanitization against XSS
-app.use(xss());
-//. Prevent parameter pollution
+// app.use(mongoSanitize());
+// //. Data sanitization against XSS
+// app.use(xss());
+// //. Prevent parameter pollution
 
 // Route
-app.use('/', viewRouter);
-//API
-
 
 app.use("/food_orderWeb", food_order_webRouter);
+//API
+app.use('/', viewRouter);
+
 
 
 
