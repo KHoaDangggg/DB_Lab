@@ -5,6 +5,7 @@ import {
     getProduct,
     getSignupForm,
     getMyCart,
+    // getMainPage,
 } from '../controllers/viewController.mjs';
 // import {
 //     isLoggedIn,
@@ -16,5 +17,6 @@ Router.get('/signup', getSignupForm);
 // Router.use(isLoggedIn);
 Router.get('/mycart', getMyCart);
 Router.get('/:slug', getProduct);
+// Router.get('/mainpage', getMainPage);
 Router.route('/').get(getOverview);
 export default Router;
