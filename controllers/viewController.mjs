@@ -18,7 +18,7 @@ const getSignupForm = (req, res) => {
     });
 };
 const getMyCart = catchAsync(async (req, res) => {
-    res.status(200).render('cart', {
+    res.status(200).render('myCart', {
         title: 'My cart',
     });
 });
