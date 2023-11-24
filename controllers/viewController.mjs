@@ -1,45 +1,32 @@
+import { getAllProducts, getBestSellerProducts } from './productController.mjs';
 import catchAsync from '../ultils/catchAsync.mjs';
 const getOverview = catchAsync(async (req, res) => {
-    
-    const products = [
-        {
-            itemID: 1,
-            itemName: "Food 1",
-            itemStatus: true,
-            price: 1000,
-            image: 'images/cake.jpg',
-            rate: 4
-        },
-        {
-            itemID: 1,
-            itemName: "Food 1",
-            itemStatus: true,
-            price: 1000,
-            image: 'images/cake.jpg',
-            rate: 4
-        },
-        {
-            itemID: 1,
-            itemName: "Food 1",
-            itemStatus: true,
-            price: 1000,
-            image: 'images/cake.jpg',
-            rate: 4
-        },
-        {
-            itemID: 1,
-            itemName: "Food 1",
-            itemStatus: true,
-            price: 1000,
-            image: 'images/cake.jpg',
-            rate: 4
-        },
-    ]
+    const query = req.query;
+    console.log(query);
+    const currentPage = query.page;
+    const sort = query.sort || '';
+    const foodType = query.foodType || '';
+    const maxPrice = query.maxPrice || 1000000000;
+    const minPrice = query.minPrice || 0;
+    const avail = query.available || '';
+    const {products, page} = await getAllProducts(
+        parseInt(currentPage), sort, foodType,
+        maxPrice, minPrice, avail);
     res.status(200).render('overview', {
         title: 'Trang chủ',
-        products
+        products,
+        page,
+        req
     });
 });
+
+const getBestSeller = catchAsync(async (req, res, next) => {
+    const products = await getBestSellerProducts();
+    res.status.render('overview', {
+        title: 'Best Seller',
+        products
+    })
+})
 const getProduct = catchAsync(async (req, res, next) => {
     res.status(200).render('product');
 });

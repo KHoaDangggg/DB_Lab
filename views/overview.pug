@@ -15,8 +15,25 @@ block content
         </div>
     </section>
 
-    <div class="menu" id="Menu">
+    #Menu.menu.contain-req(data-path = `${req.path}` data-query = `${JSON.stringify(req.query)}`)
         <h1> Our<span>Menu</span></h1>
+        .row.align-items-center.border.border-light
+            h3.col-xl-2.col-3 Sắp xếp theo 
+            .col-xl-10.col-9(class="btn-group" role="group" aria-label="Button group")
+                a(href = '/'): button(type="button" class="btn btn-light m-1") Mặc định
+                a: button(type="button" class="avail btn btn-light m-1" ) Còn hàng
+                a: button(type="button" class="ascPrice btn btn-light m-1" ) Giá giảm dần
+                a: button(type="button" class="desPrice btn btn-light m-1" ) Giá tăng dần
+                a(href='/best-seller'): button.d-none.d-sm-block(type="button" class="desRate btn btn-light m-1" ) Best Sellers
+        .row.align-items-center.d-none.d-sm-block
+            h3.col-xl-2 Food type
+            .col-xl-10(class="btn-group" role="group" aria-label="Button group")
+                button( data-foodType = 'i3' type="button" class="foodType-filter btn btn-light m-1" ) Food type 1
+                button( data-foodType = 'i5' type="button" class="foodType-filter btn btn-light m-1") Intel I5
+                button( data-foodType = 'i7' type="button" class="foodType-filter btn btn-light m-1") Intel I7
+                button( data-foodType = 'r3' type="button" class="foodType-filter btn btn-light m-1") AMD Ryzen 3
+                button( data-foodType = 'r5' type="button" class="foodType-filter btn btn-light m-1") AMD Ryzen 5
+                button( data-foodType = 'r7' type="button" class="foodType-filter btn btn-light m-1") AMD Ryzen 7
         .menu_box
             if products.length == 0
                 h5 KHong co san pham phu hop
@@ -24,12 +41,15 @@ block content
                 each product in products
                     .menu_card
                         a.menu_image(href=`/${product.itemID}`)
-                            img(src=`/${product.image}`)
+                            img(src=`/images/${product.image}`)
                         .small_card
                             i.fa-solid.fa-heart
                         .menu_info
                             h2= product.itemName
-                            h3= product.price
+                            h3= product.old_price
+                            h3= product.discount 
+                            h3= product.new_price
+                            h3 #{product.status? 'Còn hàng': 'Liên hệ'}
                             - let star = 0
                             while ++star <= product.rate
                                 i.fa-solid.fa-star.text-warning
@@ -37,8 +57,13 @@ block content
                                 i.fa-solid.fa-star.text-secondary
                             .menu_icon
                                 
-                            a.menu_btn(href='#') Order Now
+                            a.menu_btn(href=`/${product.itemID}`) Order Now
     </div>
+    if products.length > 0
+        .d-flex.justify-content-center.bg-white.py-3
+            if pageNum > 1
+                button.btn.btn-light.paginationBtn(data-page=`${page-1}`) Trước  
+            button.btn.btn-light.paginationBtn(data-page=`${page+1}`) Tiếp 
 
     //- ----- galery section ---------
 
@@ -220,5 +245,5 @@ block content
 
 
 block append script
-
+    script(src="js/filter.mjs")  
 

@@ -6,7 +6,7 @@ import xss from 'xss-clean';
 import cookieParser from 'cookie-parser';
 import * as url from 'url';
 import path from 'path';
-import food_order_webRouter from "./routes/food_order_web.js";
+import dbRouter from "./routes/dbRoutes.mjs";
 
 import viewRouter from './routes/viewRoutes.mjs'
 
@@ -31,14 +31,14 @@ app.use(
 );
 app.use(cookieParser());
 //. Data sanitization against NoSQL query injection
-// app.use(mongoSanitize());
-// //. Data sanitization against XSS
-// app.use(xss());
-// //. Prevent parameter pollution
+app.use(mongoSanitize());
+//. Data sanitization against XSS
+app.use(xss());
+//. Prevent parameter pollution
 
 // Route
 
-app.use("/food_orderWeb", food_order_webRouter);
+app.use("/db/", dbRouter);
 //API
 app.use('/', viewRouter);
 
