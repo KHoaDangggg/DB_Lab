@@ -1,1 +1,0 @@
-// Viết hàm trả về list user và list admin

@@ -1,22 +1,20 @@
 import catchAsync from '../ultils/catchAsync.mjs';
 import appError from '../ultils/appError.mjs';
-import User from '../models/userModel.mjs';
+import User from './userControllers.mjs'
 import jwt from 'jsonwebtoken';
 import { promisify } from 'util';
-import crypto from 'crypto';
-const createToken = (id) => {
-    return jwt.sign({ id }, process.env.PRIVATE_KEY, {
+
+const createToken = (phone) => {
+    return jwt.sign({ phone }, process.env.PRIVATE_KEY, {
         expiresIn: '7d',
     });
 };
 const sendToken = (user, req, res) => {
-    const token = createToken(user._id);
+    const token = createToken(user.phone);
     res.cookie('jwt', token, {
-        //httpOnly: true,
         expires: new Date(
             Date.now() + process.env.COOKIE_JWT_EXPIRE_IN * 24 * 3600 * 1000
         ),
-        // secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
     });
     res.status(201).json({
         status: 'success',
@@ -25,21 +23,18 @@ const sendToken = (user, req, res) => {
     });
 };
 const login = catchAsync(async (req, res, next) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email }).select('+password');
+    const { phone, password } = req.body;
+    const user = await User.findUser(phone);
     const check = await user.correctPassword(password, user.password);
     if (!check || !user)
-        return next(new appError('Can not find user with that email', 404));
+        return next(new appError('Can not find user with that phone number', 404));
     sendToken(user, req, res);
 });
 const signup = catchAsync(async (req, res, next) => {
-    const { name, password, email, passwordConfirm } = req.body;
+    const { phone, password } = req.body;
     const newUser = await User.create({
-        name,
-        email,
+        phone,
         password,
-        passwordConfirm,
-        passwordChangeAt: new Date(Date.now()),
     });
     sendToken(newUser, req, res);
 });
@@ -86,71 +81,17 @@ const protect = catchAsync(async (req, res, next) => {
     res.locals.user = user;
     next();
 });
-const forgotPassword = catchAsync(async (req, res, next) => {
-    //1.Check if user exist
-    const user = await User.findOne({ email: req.body.email });
-    if (!user) {
-        return next(new appError('User does not exist'), 401);
-    }
-    //2. Generate the random reset token
-    const resetToken = user.createResetPassToken();
-    await user.save({ validateBeforeSave: false });
-    //3. Send token to user's email
-    //     try {
-    //         const resetURL = `${req.protocol}://${req.get(
-    //             'host'
-    //         )}/api/users/resetPassword/${resetToken}`;
-    //         await new Email(user, resetURL).sendPasswordReset();
-    //         res.status(200).json({
-    //             status: 'Success',
-    //             message: 'Token was sent to email successfully',
-    //         });
-    //     } catch (err) {
-    //         user.passwordResetToken = undefined;
-    //         user.passwordResetExpires = undefined;
-    //         await user.save({ validateBeforeSave: false });
-    //     }
-});
 
-const resetPassword = catchAsync(async (req, res, next) => {
-    //1. Get user based on token
-    const hashedToken = crypto
-        .createHash('sha256')
-        .update(req.params.token)
-        .digest('hex');
-    const user = await User.findOne({
-        passwordResetToken: hashedToken,
-        passwordResetExpires: { $gt: Date.now() },
-    });
-    //2. If token is not expired and user exists, set new password
-    if (!user) {
-        return next(new appError('Token is in valid or expired', 400));
-    }
-    user.password = req.body.password;
-    user.passwordConfirm = req.body.passwordConfirm;
-    user.passwordResetToken = undefined;
-    user.passwordResetExpires = undefined;
-    await user.save();
-    //3. Update changedPasswordAt
-
-    //4. Log user in with JWT
-    createSendToken(user, req, res);
-});
 const updatePassword = catchAsync(async (req, res, next) => {
     //1. Get user from collection
-    const user = await User.findById(req.user._id).select('+password');
+    const user = await User.findUser(req.body.phone);
     //2. Check if POSTED password is correct
-    const correct = await user.correctPassword(
-        req.body.passwordCurrent,
-        user.password
-    );
+    const correct = User.correctPassword(req.body.password,user.password)
     if (!correct) {
         return next(new appError('Your current password is wrong', 401));
     }
     //3. If correct, update password
-    user.password = req.body.password;
-    user.passwordConfirm = req.body.passwordConfirm;
-    await user.save();
+    await User.updateUser({password: req.body.password})
     //4. Log user in, send JWT
     sendToken(user, req, res);
 });
@@ -164,7 +105,7 @@ const isLoggedIn = async (req, res, next) => {
             );
 
             //3. Check if user still exist
-            const freshUser = await User.findById(decoded.id);
+            const freshUser = await User.findUser(decoded.phone);
             if (!freshUser) {
                 res.locals.user = null;
                 return next();
@@ -191,9 +132,7 @@ export {
     login,
     logout,
     signup,
-    resetPassword,
-    forgotPassword,
     protect,
     updatePassword,
     isLoggedIn,
-};
+}; 
