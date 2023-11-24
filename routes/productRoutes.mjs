@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 /* FOOD */
-router.get('/food/', async function(req, res, next) {
+router.get('/f', async function(req, res, next) {
   try {
     const result = await getAllProducts();
     res.json(result)
@@ -13,5 +13,8 @@ router.get('/food/', async function(req, res, next) {
     next(err);
   }
 });
+
+
+
 
 export default router;

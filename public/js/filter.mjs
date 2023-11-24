@@ -1,10 +1,8 @@
 const ascPriceBtn = document.querySelector('.ascPrice');
 const desPriceBtn = document.querySelector('.desPrice');
 
-const priceBtns = document.querySelectorAll('.price-filter');
-
 const paginationBtns = document.querySelectorAll('.paginationBtn');
-
+const foodTypeBtns = document.querySelectorAll('.foodType-filter');
 let query;
 
 
@@ -30,16 +28,11 @@ const addQuery = (attributes) => () => {
 };
 ascPriceBtn.onclick = addQuery({ sort: 'ASC' });
 desPriceBtn.onclick = addQuery({ sort: 'DESC' });
-// priceBtns.forEach((btn) => {
-//     btn.onclick = addQuery({
-//         minPrice: btn.dataset.minprice,
-//         maxPrice: btn.dataset.maxprice,
-//     });
-// });
 
-// manufacturerBtns.forEach((btn) => {
-//     btn.onclick = addQuery({ manufacturer: btn.dataset.manu });
-// });
+
+foodTypeBtns.forEach((btn) => {
+    btn.onclick = addQuery({ foodType: btn.dataset.foodType });
+});
 paginationBtns.forEach((btn) => {
     btn.onclick = () => {
         const page = btn.dataset.page;

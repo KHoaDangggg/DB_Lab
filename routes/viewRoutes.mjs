@@ -7,6 +7,7 @@ import {
     getMyCart,
     // getMainPage,
 } from '../controllers/viewController.mjs';
+import { getBestSellerProducts } from '../controllers/productController.mjs';
 // import {
 //     isLoggedIn,
 //     protect,
@@ -18,5 +19,6 @@ Router.get('/signup', getSignupForm);
 Router.get('/mycart', getMyCart);
 Router.get('/:slug', getProduct);
 // Router.get('/mainpage', getMainPage);
+Router.get('/best-seller').get(getBestSellerProducts);
 Router.route('/').get(getOverview);
 export default Router;

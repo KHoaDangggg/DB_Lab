@@ -6,8 +6,8 @@ import xss from 'xss-clean';
 import cookieParser from 'cookie-parser';
 import * as url from 'url';
 import path from 'path';
-import dbRouter from "./routes/dbRoutes.mjs";
-
+import productRouter from "./routes/productRoutes.mjs";
+import authiencateRouter from "./routes/authiencateRoutes.mjs"
 import viewRouter from './routes/viewRoutes.mjs'
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -37,9 +37,10 @@ app.use(xss());
 //. Prevent parameter pollution
 
 // Route
-
-app.use("/db/", dbRouter);
-//API
+// API
+app.use("/api/product/", productRouter);
+app.use("/api/user/", authiencateRouter);
+// View
 app.use('/', viewRouter);
 
 
