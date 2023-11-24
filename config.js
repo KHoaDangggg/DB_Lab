@@ -7,6 +7,6 @@ const config = {
       database: "food_order_web",
       connectTimeout: 60000
     },
-    listPerPage: 10,
+    listPerPage: 12,
   };
   module.exports = config;
