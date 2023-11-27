@@ -1,0 +1,109 @@
+extend base
+
+//- block append head 
+
+block content
+    .container.bg-light 
+        .row.p-4
+            //- .col-md-6
+            //-     img.img-fluid(src="D:/Code/DB_Lab-master/DB_Lab-master/Pictures/OIP.jpg", alt="Product Image")
+            .col-md-7
+                    #carouselExampleIndicators.carousel.slide(data-ride='carousel')
+                        ol.carousel-indicators
+                            li.active(data-target='#carouselExampleIndicators' data-slide-to='0')
+                            li(data-target='#carouselExampleIndicators' data-slide-to='1')
+                            li(data-target='#carouselExampleIndicators' data-slide-to='2')
+                        .carousel-inner
+                            .carousel-item.active
+                                img.d-block.w-100(src='menu1.jpg' alt='...')
+                            .carousel-item
+                                img.d-block.w-100(src='menu2.jpg' alt='...')
+                            .carousel-item
+                                img.d-block.w-100(src='menu3.jpg' alt='...')
+                        button.carousel-control-prev(type='button' data-target='#carouselExampleIndicators' data-slide='prev')
+                            span.bg-secondary.carousel-control-prev-icon(aria-hidden='true')
+                            span.sr-only Previous
+                        button.carousel-control-next(type='button' data-target='#carouselExampleIndicators' data-slide='next')
+                            span.bg-secondary.carousel-control-next-icon(aria-hidden='true')
+                            span.sr-only Next
+            .col-md-5
+                h1(style="font-size: 24px; margin-bottom: 10px;") Food Thing
+                h4(style="font-size: 18px; color: #007bff;") Price: $19.99
+                p(style="font-size: 16px; margin-bottom: 15px;") Status:
+                label(for="quantity" style="font-size: 14px;") 
+                    span.text-danger.font-weight-bold(style="margin-right: 5px;") Quantity: 
+                    input#quantity.form-control-sm.ml-2(type="number", name="quantity", value="1", min="1", max="10", style="width: 60px;font-size: 15px;")
+                br
+                button.btn.btn-info(style="font-size: 14px;") Add to Cart
+
+    //- products suggestion
+    .menu#Menu
+        .p-5
+            h3 Other Products You Might Like
+
+        .menu_box
+            .menu_card
+                .menu_image
+                    img(src="menu2.jpg")
+                .small_card
+                    i.fa-solid.fa-heart
+                .menu_info
+                    h2 Bánh Chưng
+                    h3 20.00$
+                    .menu_icon
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star-half_stroke
+                    a.menu_btn(href="#") Order Now
+            .menu_card
+                .menu_image
+                    img(src="menu3.jpg")
+                .small_card
+                    i.fa-solid.fa-heart
+                .menu_info
+                    h2 Bánh Chưng
+                    h3 20.00$
+                    .menu_icon
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star-half_stroke
+                    a.menu_btn(href="#") Order Now
+            .menu_card
+                .menu_image
+                    img(src="menu4.jpg")
+                .small_card
+                    i.fa-solid.fa-heart
+                .menu_info
+                    h2 Bánh Chưng
+                    h3 20.00$
+                    .menu_icon
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star-half_stroke
+                    a.menu_btn(href="#") Order Now
+            .menu_card
+                .menu_image
+                    img(src="menu5.jpg")
+                .small_card
+                    i.fa-solid.fa-heart
+                .menu_info
+                    h2 Bánh Chưng
+                    h3 20.00$
+                    .menu_icon
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star
+                        i.fa-solid.fa-star-half_stroke
+                    a.menu_btn(href="#") Order Now
+
+block append script
+    // Add any JavaScript or script source links you need for this page
+
+

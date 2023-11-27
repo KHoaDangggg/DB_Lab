@@ -1,0 +1,74 @@
+extends base
+
+//- block append head 
+block content
+    .container.bg-light
+        h1.your-order-title Your Order
+        table.table.table-bordered.table-hover
+            thead
+                tr
+                    th.text-center Product
+                    th.text-center Quantity
+                    th.text-center Price
+                    th.text-center Total
+            tbody
+                - 
+                //- each item in cart
+                //-     tr
+                //-         td= item.name
+                //-         td
+                //-             input(type="number", min="1", value=item.quantity, name="quantity")
+                //-         td.text-right $#{item.price}
+                //-         - var itemTotal = item.quantity * item.price
+                //-         td.text-right $#{itemTotal}
+                //-         - totalPrice += itemTotal
+
+        table.table.table-hover
+            tr  
+                th
+                th
+                th.text-right Total Price:
+                th.text-center  
+                //- $#{totalPrice}
+
+        //- a.btn.btn-primary(href="/checkout") Checkout
+    
+        a.btn.btn-primary(href="/confirm-delivery") Confirm Delivery
+    
+    .container.bg-light
+            h1 Orders Being Delivered
+                    //- Add delivery details here
+                    p(style="font-size: 15px; margin-bottom: 10px;") Order Total: 
+                        //- $#{order.totalPrice}
+                    p(style="font-size: 15px; margin-bottom: 10px;") Shipper Name: 
+                        //- #{order.shipperName}
+                    p(style="font-size: 15px; margin-bottom: 10px;") Order Status: 
+                        //- #{order.orderStatus}
+                    p(style="font-size: 15px; margin-bottom: 10px;") Delivery Address:
+
+            
+    .container.bg-light
+            h1 Completed Orders
+            table.table.table-bordered.table-hover
+                thead
+                    tr
+                        th Order ID
+                        th Shipper Name
+                        th Price
+                        th Total
+                tbody
+                    - // Loop through completed orders
+                    //- each order in completedOrders
+                    tr
+                        //- td= order.orderid
+                        //- td= order.quantity
+                        //- td= `$${order.price}`
+                        //- td= `$${order.total}`
+            
+
+
+            
+
+
+
+

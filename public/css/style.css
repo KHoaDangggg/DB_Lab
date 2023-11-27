@@ -581,4 +581,11 @@ section{
     color: var(--orange);
 }
 
+/* <============== Product details =============> */
+.container{
+    margin-top: 125px !important;
+}
+.carousel-item img{
+    aspect-ratio: 3/2 !important;
+}
 
