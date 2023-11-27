@@ -4,10 +4,10 @@ const router = express.Router();
 
 
 /* FOOD */
-router.get('/f', async function(req, res, next) {
+router.get('/', async function(req, res, next) {
   try {
-    const result = await getAllProducts();
-    res.json(result)
+    const {products} = await getAllProducts();
+    res.json({products})
   } catch (err) {
     console.error(`Error while getting order `, err.message);
     next(err);

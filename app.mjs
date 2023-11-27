@@ -38,7 +38,7 @@ app.use(xss());
 
 // Route
 // API
-app.use("/api/product/", productRouter);
+app.use("/api/products/", productRouter);
 app.use("/api/user/", authiencateRouter);
 // View
 app.use('/', viewRouter);

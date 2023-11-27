@@ -1,7 +1,7 @@
 // Viết hàm return các list về product
 import db from '../services/db.js';
-import helper from '../helper.js';
-import config from '../config.js';
+import helper from '../services/helper.js';
+import config from '../services/config.js';
 
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';

@@ -1,10 +1,10 @@
 const ascPriceBtn = document.querySelector('.ascPrice');
 const desPriceBtn = document.querySelector('.desPrice');
-
+const availableBtn = document.querySelector('.avail');
 const paginationBtns = document.querySelectorAll('.paginationBtn');
 const foodTypeBtns = document.querySelectorAll('.foodType-filter');
 let query;
-
+console.log('filter')
 
 const addQuery = (attributes) => () => {
     const req = document.querySelector('.contain-req');
@@ -31,7 +31,7 @@ desPriceBtn.onclick = addQuery({ sort: 'DESC' });
 
 
 foodTypeBtns.forEach((btn) => {
-    btn.onclick = addQuery({ foodType: btn.dataset.foodType });
+    btn.onclick = addQuery({ foodType: btn.dataset.foodtype });
 });
 paginationBtns.forEach((btn) => {
     btn.onclick = () => {
@@ -39,3 +39,5 @@ paginationBtns.forEach((btn) => {
         addQuery({ page })();
     };
 });
+
+availableBtn.onclick =addQuery({status: 1})

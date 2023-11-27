@@ -22,34 +22,33 @@ block content
             .col-xl-10.col-9(class="btn-group" role="group" aria-label="Button group")
                 a(href = '/'): button(type="button" class="btn btn-light m-1") Mặc định
                 a: button(type="button" class="avail btn btn-light m-1" ) Còn hàng
-                a: button(type="button" class="ascPrice btn btn-light m-1" ) Giá giảm dần
-                a: button(type="button" class="desPrice btn btn-light m-1" ) Giá tăng dần
+                a: button(type="button" class="desPrice btn btn-light m-1" ) Giá giảm dần
+                a: button(type="button" class="ascPrice btn btn-light m-1" ) Giá tăng dần
                 a(href='/best-seller'): button.d-none.d-sm-block(type="button" class="desRate btn btn-light m-1" ) Best Sellers
         .row.align-items-center.d-none.d-sm-block
             h3.col-xl-2 Food type
             .col-xl-10(class="btn-group" role="group" aria-label="Button group")
-                button( data-foodType = 'i3' type="button" class="foodType-filter btn btn-light m-1" ) Food type 1
-                button( data-foodType = 'i5' type="button" class="foodType-filter btn btn-light m-1") Intel I5
-                button( data-foodType = 'i7' type="button" class="foodType-filter btn btn-light m-1") Intel I7
-                button( data-foodType = 'r3' type="button" class="foodType-filter btn btn-light m-1") AMD Ryzen 3
-                button( data-foodType = 'r5' type="button" class="foodType-filter btn btn-light m-1") AMD Ryzen 5
-                button( data-foodType = 'r7' type="button" class="foodType-filter btn btn-light m-1") AMD Ryzen 7
+                button( data-foodtype='Cake' type="button" class="foodType-filter btn btn-light m-1" ) Cake
+                button( data-foodtype='Drink & Dessert' type="button" class="foodType-filter btn btn-light m-1") Drink & Dessert
+                button( data-foodtype='Noodle' type="button" class="foodType-filter btn btn-light m-1") Noodle
+                button( data-foodtype='Light Snack' type="button" class="foodType-filter btn btn-light m-1") Light Snack
+                button( data-foodtype='Foreign Food' type="button" class="foodType-filter btn btn-light m-1") Foreign Food
         .menu_box
             if products.length == 0
                 h5 KHong co san pham phu hop
             else 
                 each product in products
                     .menu_card
-                        a.menu_image(href=`/${product.itemID}`)
+                        a.menu_image(href=`/${product.item_id}`)
                             img(src=`/images/${product.image}`)
                         .small_card
                             i.fa-solid.fa-heart
                         .menu_info
-                            h2= product.itemName
+                            h2= product.item_name
                             h3= product.old_price
                             h3= product.discount 
                             h3= product.new_price
-                            h3 #{product.status? 'Còn hàng': 'Liên hệ'}
+                            h3 #{product.item_status? 'Còn hàng': 'Liên hệ'}
                             - let star = 0
                             while ++star <= product.rate
                                 i.fa-solid.fa-star.text-warning
@@ -57,7 +56,7 @@ block content
                                 i.fa-solid.fa-star.text-secondary
                             .menu_icon
                                 
-                            a.menu_btn(href=`/${product.itemID}`) Order Now
+                            a.menu_btn(href=`/${product.item_id}`) Order Now
     </div>
     if products.length > 0
         .d-flex.justify-content-center.bg-white.py-3

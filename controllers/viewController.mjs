@@ -1,9 +1,10 @@
-import { getAllProducts, getBestSellerProducts } from './productController.mjs';
+import { getAllProducts, getBestSellerProducts, getOneProduct } from './productController.mjs';
 import catchAsync from '../ultils/catchAsync.mjs';
 const getOverview = catchAsync(async (req, res) => {
     const query = req.query;
     console.log(query);
-    const currentPage = query.page;
+    const pattern = query.pattern || ''
+    const currentPage = query.page || 1;
     const sort = query.sort || '';
     const foodType = query.foodType || '';
     const maxPrice = query.maxPrice || 1000000000;
@@ -11,7 +12,7 @@ const getOverview = catchAsync(async (req, res) => {
     const avail = query.available || '';
     const {products, page} = await getAllProducts(
         parseInt(currentPage), sort, foodType,
-        maxPrice, minPrice, avail);
+        maxPrice, minPrice, avail, pattern);
     res.status(200).render('overview', {
         title: 'Trang chủ',
         products,
@@ -22,13 +23,19 @@ const getOverview = catchAsync(async (req, res) => {
 
 const getBestSeller = catchAsync(async (req, res, next) => {
     const products = await getBestSellerProducts();
-    res.status.render('overview', {
+    res.status(200).render('overview', {
         title: 'Best Seller',
-        products
+        products,
+        req
     })
 })
 const getProduct = catchAsync(async (req, res, next) => {
-    res.status(200).render('product');
+    const product = await getOneProduct(req.params.id)
+    res.status(200).render('product', {
+        title: product.name,
+        product,
+        req
+    });
 });
 const getLoginForm = (req, res) => {
     res.status(200).render('login', {
@@ -51,4 +58,5 @@ export {
     getLoginForm,
     getSignupForm,
     getMyCart,
+    getBestSeller
 };
