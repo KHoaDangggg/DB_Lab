@@ -2,68 +2,58 @@ extends base
 
 //- block append head 
 block content
-    .container.bg-light
-        h1.your-order-title Your Order
-        table.table.table-bordered.table-hover
-            thead
-                tr
-                    th.text-center Product
-                    th.text-center Quantity
-                    th.text-center Price
-                    th.text-center Total
-            tbody
-                - 
-                //- each item in cart
-                //-     tr
-                //-         td= item.name
-                //-         td
-                //-             input(type="number", min="1", value=item.quantity, name="quantity")
-                //-         td.text-right $#{item.price}
-                //-         - var itemTotal = item.quantity * item.price
-                //-         td.text-right $#{itemTotal}
-                //-         - totalPrice += itemTotal
+    .container.px-3.my-5.clearfix
 
-        table.table.table-hover
-            tr  
-                th
-                th
-                th.text-right Total Price:
-                th.text-center  
-                //- $#{totalPrice}
+        .card
+            .card-header
+                h2 Shopping Cart
+            .card-body
+                .table-responsive
+                    table.table.table-bordered.m-0
+                        thead
+                            tr
+                                // Set columns width
+                                th.text-center.py-3.px-4(style="min-width: 100px;") Product ID
+                                th.text-center.py-3.px-4(style="min-width: 100px;") Product Name
+                                th.text-center.py-3.px-4(style="width: 100px;") Price
+                                th.text-center.py-3.px-4(style="width: 120px;") Quantity
+                                th.text-center.py-3.px-4(style="width: 100px;") Total
+                                th.text-center.align-middle.py-3.px-0(style="width: 40px;") 
+                                    a.shop-tooltip.float-none.text-light(href="#" title="" data-original-title="Clear cart")
+                                    i.ino.ion-md-trash
+                        tbody
+                            tr
+                            td.p-4.text-center XYZ1
+                            td.p-4.text-center Product 1
+                            
+                            td.text-center.font-weight-semibold.align-middle.p-4 $57.55
+                            td.align-middle.p-4
+                                input.form-control.text-center(value="2",style="font-size: 13px")
+                            td.text-center.font-weight-semibold.align-middle.p-4 $115.1
+                            td.text-center.align-middle.px-0
+                                a.shop-tooltip.close.float-none.text-danger(href="#" title="" data-original-title="Remove") ×
+                            //- Repeat the above structure for the remaining items
+                            //- ...
+                    // - Shopping cart table
 
-        //- a.btn.btn-primary(href="/checkout") Checkout
-    
-        a.btn.btn-primary(href="/confirm-delivery") Confirm Delivery
-    
-    .container.bg-light
-            h1 Orders Being Delivered
-                    //- Add delivery details here
-                    p(style="font-size: 15px; margin-bottom: 10px;") Order Total: 
-                        //- $#{order.totalPrice}
-                    p(style="font-size: 15px; margin-bottom: 10px;") Shipper Name: 
-                        //- #{order.shipperName}
-                    p(style="font-size: 15px; margin-bottom: 10px;") Order Status: 
-                        //- #{order.orderStatus}
-                    p(style="font-size: 15px; margin-bottom: 10px;") Delivery Address:
+                    .d-flex.flex-wrap.justify-content-between.align-items-center.pb-4
+                        .mt-4
+                            label.text-muted.font-weight-normal(style="font-size: 15px") Promocode
+                            input(type="text", placeholder="ABC", class="form-control",style="font-size: 15px")
+                        .d-flex
+                            .text-right.mt-4.mr-5
+                                label(style="font-size: 15px") Discount
+                                div.text-large(style="font-size: 15px")
+                                    strong $20
+                            .text-right.mt-4.mr-5
+                                label(style="font-size: 15px") Total price
+                                div.text-large(style="font-size: 15px")
+                                    strong $1164.65
+                    .float-right
+                        button.btn.btn-lg.btn-default.md-btn-flat.mt-2.mr-3(href="/" type="button") Back to shopping
+                        button.btn.btn-lg.btn-primary.mt-2 Checkout
 
-            
-    .container.bg-light
-            h1 Completed Orders
-            table.table.table-bordered.table-hover
-                thead
-                    tr
-                        th Order ID
-                        th Shipper Name
-                        th Price
-                        th Total
-                tbody
-                    - // Loop through completed orders
-                    //- each order in completedOrders
-                    tr
-                        //- td= order.orderid
-                        //- td= order.quantity
-                        //- td= `$${order.price}`
-                        //- td= `$${order.total}`
+
             
 
 
