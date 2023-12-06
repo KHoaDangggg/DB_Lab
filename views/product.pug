@@ -36,6 +36,8 @@ block content
                 br
                 button.btn.btn-info(style="font-size: 14px;") Add to Cart
 
+    const shuffledProducts = products.sort(() => Math.random() - 0.5).slice(0, 4);
+    
     //- products suggestion
     .menu#Menu
         .p-5
